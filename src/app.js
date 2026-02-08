@@ -24,11 +24,17 @@ app.use(
   cors({
     origin: "https://taskmate-kanban.netlify.app",
     credentials: true,
-  })
+  }),
 );
 
 // allow preflight
-app.options("*", cors());
+app.options(
+  "*",
+  cors({
+    origin: "https://taskmate-kanban.netlify.app",
+    credentials: true,
+  }),
+);
 
 app.use(sessionConfig);
 
