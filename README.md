@@ -96,7 +96,7 @@ http://localhost:3000
 This backend is configured to work with:
 
 * Local frontend (`http://localhost:5173`)
-* Netlify deployed frontend
+* Netlify deployed frontend [https://taskmate-kanban.netlify.app/](https://taskmate-kanban.netlify.app/)
 
 Cookies are enabled using:
 
@@ -131,7 +131,7 @@ Production requirements:
 
 Frontend (React + Vite) is deployed separately on Netlify.
 
-➡️ [http://taskmate-kanban.netlify.app](https://taskmate-kanban.netlify.app/)
+➡️ [https://github.com/Nitish-0710/taskmate-frontend](https://github.com/Nitish-0710/taskmate-frontend)
 
 ---
 
