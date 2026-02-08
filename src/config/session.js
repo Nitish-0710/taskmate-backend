@@ -10,7 +10,7 @@ const sessionConfig = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  proxy:true;
+  proxy:true, 
   cookie: {
     httpOnly: true,
     secure: isProduction,                 // true only in production
