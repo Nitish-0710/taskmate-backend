@@ -8,37 +8,40 @@ import cors from "cors";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://taskmate-kanban.netlify.app",
-];
+/* -------------------------------------------------- */
+/* 🔑 VERY IMPORTANT FOR RENDER (HTTPS PROXY)         */
+/* -------------------------------------------------- */
+app.set("trust proxy", 1);
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    // allow server-to-server / curl / postman
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+/* -------------------------------------------------- */
+/* MIDDLEWARE                                         */
+/* -------------------------------------------------- */
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(cors(corsOptions));     
-app.options("*", cors(corsOptions)); 
+app.use(
+  cors({
+    origin: "https://taskmate-kanban.netlify.app",
+    credentials: true,
+  })
+);
 
-app.use(sessionConfig);        
+// allow preflight
+app.options("*", cors());
+
+app.use(sessionConfig);
+
+/* -------------------------------------------------- */
+/* ROUTES                                             */
+/* -------------------------------------------------- */
 
 app.use("/api/auth", authRouter);
 app.use("/api/task", kanbanRouter);
+
+/* -------------------------------------------------- */
+/* DB + SERVER                                        */
+/* -------------------------------------------------- */
 
 mongoose
   .connect(process.env.MONGO_URI)
